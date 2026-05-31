@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { socket } from '../socket'
 
+const API_URL = 'https://restaurant-system-production-3d31.up.railway.app'
+
 export default function WaiterPage() {
   const [calls, setCalls] = useState([])
 
@@ -15,7 +17,7 @@ export default function WaiterPage() {
   }, [])
 
   const acceptCall = async table => {
-    await axios.post('http://localhost:3000/accept', { table })
+    await axios.post(`${API_URL}/accept`, { table })
 
     setCalls(prev =>
       prev.map(c =>
@@ -27,7 +29,7 @@ export default function WaiterPage() {
   }
 
   const completeCall = async table => {
-    await axios.post('http://localhost:3000/complete', { table })
+    await axios.post(`${API_URL}/complete`, { table })
 
     setCalls(prev => prev.filter(c => c.table !== table))
   }
