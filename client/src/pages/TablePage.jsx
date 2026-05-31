@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
@@ -30,6 +29,8 @@ export default function TablePage() {
   }, [])
 
   const callWaiter = async () => {
+    navigator.vibrate?.([300, 100, 300])
+
     await axios.post(`${API_URL}/call`, {
       table: id,
       sessionId
@@ -39,38 +40,85 @@ export default function TablePage() {
   }
 
   return (
-    <div style={{
-      height:'100vh',
-      display:'flex',
-      flexDirection:'column',
-      justifyContent:'center',
-      alignItems:'center',
-      background:'linear-gradient(135deg,#1e293b,#0f172a)',
-color:'#fff',
-      fontFamily:'Arial'
-    }}>
-      <h1 style={{fontSize:50}}>Стол #{id}</h1>
-
-      <button
-        onClick={callWaiter}
-        disabled={status === 'waiting' || status === 'accepted'}
+    <div
+      style={{
+        height: '100vh',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        background:
+          'linear-gradient(135deg,#0f172a,#1e293b,#334155)',
+        color: '#fff',
+        fontFamily: 'Arial'
+      }}
+    >
+      <div
         style={{
-          background:'#ff4d4d',
-          color:'#fff',
-          border:'none',
-          borderRadius:30,
-          padding:'30px 60px',
-          fontSize:30,
-          cursor:'pointer'
+          width: '90%',
+          maxWidth: 500,
+          textAlign: 'center',
+          background: 'rgba(255,255,255,0.08)',
+          backdropFilter: 'blur(10px)',
+          borderRadius: 30,
+          padding: 40
         }}
       >
-        ПОЗВАТЬ ОФИЦИАНТА
-      </button>
+        <div style={{ fontSize: 70 }}>🍽️</div>
 
-      <div style={{marginTop:40,fontSize:28}}>
-        {status === 'waiting' && '🔔 Официант вызван'}
-        {status === 'accepted' && '👨‍🍳 Официант уже идёт'}
-        {status === 'completed' && '✅ Вызов завершён'}
+        <h2>Добро пожаловать</h2>
+
+        <h1
+          style={{
+            fontSize: 42,
+            marginBottom: 30
+          }}
+        >
+          Стол №{id}
+        </h1>
+
+        <button
+          onClick={callWaiter}
+          disabled={
+            status === 'waiting' ||
+            status === 'accepted'
+          }
+          style={{
+            width: '100%',
+            padding: 25,
+            border: 'none',
+            borderRadius: 100,
+            fontSize: 24,
+            color: '#fff',
+            cursor: 'pointer',
+            background:
+              status === ''
+                ? '#ef4444'
+                : '#22c55e'
+          }}
+        >
+          {status === ''
+            ? 'НАЖМИТЕ ДЛЯ ВЫЗОВА ОФИЦИАНТА'
+            : 'ОФИЦИАНТ ВЫЗВАН'}
+        </button>
+
+        <div
+          style={{
+            marginTop: 35,
+            fontSize: 24
+          }}
+        >
+          {status === '' &&
+            '👆 Нажмите кнопку для вызова'}
+
+          {status === 'waiting' &&
+            '⏳ Официант уведомлен'}
+
+          {status === 'accepted' &&
+            '🚶 Официант уже идёт'}
+
+          {status === 'completed' &&
+            '✅ Официант подошёл'}
+        </div>
       </div>
     </div>
   )
