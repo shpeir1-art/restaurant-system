@@ -6,6 +6,8 @@ const API_URL = 'https://restaurant-system-production-3d31.up.railway.app'
 
 export default function WaiterPage() {
   const [calls, setCalls] = useState([])
+const waiterName =
+  localStorage.getItem('waiterName') || 'Официант'
 
   useEffect(() => {
     socket.on('new_call', data => {
@@ -65,6 +67,16 @@ export default function WaiterPage() {
         }}
       >
         🍽 Панель официанта
+
+<div
+  style={{
+    marginTop:10,
+    fontSize:20,
+    color:'#94a3b8'
+  }}
+>
+  👤 {waiterName}
+</div>
       </h1>
 
       {calls.length === 0 && (
