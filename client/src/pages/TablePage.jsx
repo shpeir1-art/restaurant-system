@@ -4,6 +4,8 @@ import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import { socket } from '../socket'
 
+const API_URL = 'https://restaurant-system-production-3d31.up.railway.app'
+
 export default function TablePage() {
   const { id } = useParams()
 
@@ -11,7 +13,7 @@ export default function TablePage() {
   const [status, setStatus] = useState('')
 
   useEffect(() => {
-    axios.post(`http://localhost:3000/session/${id}`)
+    axios.post(`${API_URL}/session/${id}`)
       .then(res => setSessionId(res.data.sessionId))
 
     socket.on('call_accepted', data => {
@@ -28,7 +30,7 @@ export default function TablePage() {
   }, [])
 
   const callWaiter = async () => {
-    await axios.post('http://localhost:3000/call', {
+    await axios.post(`${API_URL}/call`, {
       table: id,
       sessionId
     })
