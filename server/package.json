@@ -1,4 +1,3 @@
-
 {
   "name": "restaurant-server",
   "version": "1.0.0",
@@ -10,6 +9,7 @@
     "cors": "^2.8.5",
     "express": "^4.19.2",
     "socket.io": "^4.7.5",
+    "sqlite3": "^6.0.1",
     "uuid": "^11.0.2"
   }
 }
