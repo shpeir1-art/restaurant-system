@@ -45,7 +45,8 @@ export default function TablePage() {
       flexDirection:'column',
       justifyContent:'center',
       alignItems:'center',
-      background:'#ffffff',
+      background:'linear-gradient(135deg,#1e293b,#0f172a)',
+color:'#fff',
       fontFamily:'Arial'
     }}>
       <h1 style={{fontSize:50}}>Стол #{id}</h1>
